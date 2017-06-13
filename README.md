@@ -1,6 +1,6 @@
 # daab-console-timeline
-display messages on your console for daab.
-** sorry but this script only works on Mac **
+display messages on your console for daab.  
+🍎 **this script only works on Mac** 🍎
 
 # daab
 
