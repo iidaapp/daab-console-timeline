@@ -26,9 +26,15 @@ module.exports = (robot) => {
 
   // メッセージ (全部？)
   robot.hear(/(.*)/i, (res) => {
-    // もっといい判別方法があれば...
+    let text = res.message.text
+    if (res.message.roomType === 1) {
+      text = text.replace(/^\S+ /, '')
+    }
+    if (res.message.id === null) {
+      return
+    }
     if (!res.message.text.match(regexObject)) {
-      outputConsoleLog(res, 'メッセージ', `本文: ${res.message.text}`)
+      outputConsoleLog(res, 'メッセージ', `本文: ${text}`)
     }
   })
 
@@ -36,9 +42,9 @@ module.exports = (robot) => {
   robot.hear('stamp', (res) => {
     const url = `https://direct4b.com/images/stamp/${res.json.stamp_set}/${res.json.stamp_index}.png`
     if(res.json.text) {
-      outputConsoleLog(res, 'スタンプ', `本文: ${res.json.text}`, `url: ${url}`)
+      outputConsoleLog(res, 'スタンプ', `本文: ${res.json.text}`, `スタンプ: ${url}`)
     } else {
-      outputConsoleLog(res, 'スタンプ', `url: ${url}`)
+      outputConsoleLog(res, 'スタンプ', `スタンプ: ${url}`)
     }
   })
 
