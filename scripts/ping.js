@@ -50,17 +50,29 @@ module.exports = (robot) => {
 
   // yesnoスタンプ
   robot.hear('yesno', (res) => {
-    outputConsoleLog(res, 'yesnoスタンプ', `質問: ${res.json.question}`)
+    if (res.json.response === undefined) {
+      outputConsoleLog(res, 'yesnoスタンプ', `質問: ${res.json.question}`)
+    }else {
+      outputConsoleLog(res, 'yesnoスタンプ', `(質問: ${res.json.question})`, `回答: ${res.json.response ? 'はい' : 'いいえ'}`)
+    }
   })
 
   // セレクトスタンプ
   robot.hear('select', (res) => {
-    outputConsoleLog(res, 'セレクトスタンプ', `質問: ${res.json.question}`, `> ${res.json.options}`)
+    if (res.json.response === undefined) {
+      outputConsoleLog(res, 'セレクトスタンプ', `質問: ${res.json.question}`, `> ${res.json.options}`)
+    } else {
+      outputConsoleLog(res, 'セレクトスタンプ', `(質問: ${res.json.question})`, `(> ${res.json.options})`, `回答: ${res.json.options[res.json.response]}`)
+    }
   })
 
   // タスクスタンプ
   robot.hear('task', (res) => {
-    outputConsoleLog(res, 'タスクスタンプ', `タスク: ${res.json.title}`)
+    if (!res.json.done) {
+      outputConsoleLog(res, 'タスクスタンプ', `タスク: ${res.json.title}`)
+    } else {
+      outputConsoleLog(res, 'タスクスタンプ', `(タスク: ${res.json.title})`, '=> 達成')
+    }
   })
 
   // ファイル添付
