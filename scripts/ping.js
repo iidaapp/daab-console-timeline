@@ -6,16 +6,13 @@
 //   echo <text> - Reply back with <text>
 //   time - Reply with current time
 'use strict'
-const green = '\x1b[32m'
-const cyan = '\x1b[36m'
-const red = '\x1b[31m'
-const reset = '\x1b[0m'
+const colors = require('./consts.js').colors
 const regexObject = new RegExp(/{.+:.+(,.+:.+)*}/, 'i')
 const outputConsoleLog = (res, type, ...messages) => {
-  console.log(`${cyan}=== ${type} ===${reset}`)
+  console.log(`${colors.lightGrayBG}${colors.cyan}=== ${type} ===${colors.reset}`)
   const room = res.message.room
   const rooms = res.message.rooms
-  console.log(`${green}${rooms[room].name ? rooms[room].name : '無し'} - ${res.message.user.name}${reset}`)
+  console.log(`${colors.green}${rooms[room].name ? rooms[room].name : '無し'} - ${res.message.user.name}${colors.reset}`)
   messages.forEach((message) => {
     console.log(message)
   })
